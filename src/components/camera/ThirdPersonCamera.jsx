@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 
 import { Vector3 } from "three";
 
-export default function ThirdPersonCamera({ target }) {
+export default function ThirdPersonCamera({
+  target,
+  setCameraRotation
+}) {
 
   const { camera } = useThree();
 
-  // Rotation values
   const [rotation, setRotation] = useState({
     x: 0,
     y: 0
@@ -18,7 +20,6 @@ export default function ThirdPersonCamera({ target }) {
 
     const handleMouseMove = (e) => {
 
-      // Only rotate while holding left click
       if (e.buttons !== 1) return;
 
       setRotation((prev) => ({
@@ -41,13 +42,12 @@ export default function ThirdPersonCamera({ target }) {
 
     const playerPosition = target.current.position;
 
-    // Camera distance
-    const distance = 10;
+    // Share camera angle
+    setCameraRotation(rotation.y);
 
-    // Camera height
+    const distance = 10;
     const height = 5;
 
-    // Orbit calculations
     const offsetX =
       Math.sin(rotation.y) * distance;
 
@@ -60,10 +60,8 @@ export default function ThirdPersonCamera({ target }) {
       playerPosition.z + offsetZ
     );
 
-    // Smooth camera movement
     camera.position.lerp(desiredPosition, 0.1);
 
-    // Look at player
     camera.lookAt(playerPosition);
 
   });
