@@ -16,17 +16,26 @@ const Fighter = forwardRef(function Fighter(
   ref
 ) {
 
-  // Velocity
+  // Horizontal velocity
   const velocity = useRef({
     x: 0,
     z: 0
   });
 
+  // Vertical physics
+  const verticalVelocity = useRef(0);
+
+  // Ground check
+  const isGrounded = useRef(true);
+
   useFrame(() => {
 
     if (!ref.current) return;
 
-    // Base speed
+    // =====================
+    // MOVEMENT
+    // =====================
+
     let moveSpeed = 0.08;
 
     // Sprint
@@ -37,13 +46,11 @@ const Fighter = forwardRef(function Fighter(
     let inputX = 0;
     let inputZ = 0;
 
-    // Input
     if (keys["w"]) inputZ -= 1;
     if (keys["s"]) inputZ += 1;
     if (keys["a"]) inputX -= 1;
     if (keys["d"]) inputX += 1;
 
-    // Normalize movement
     const length = Math.hypot(inputX, inputZ);
 
     if (length > 0) {
@@ -78,16 +85,45 @@ const Fighter = forwardRef(function Fighter(
 
     } else {
 
-      // Deceleration
+      // Smooth stop
       velocity.current.x *= 0.9;
       velocity.current.z *= 0.9;
 
     }
 
-    // Apply movement
+    // Apply horizontal movement
     ref.current.position.x += velocity.current.x;
 
     ref.current.position.z += velocity.current.z;
+
+    // =====================
+    // JUMPING
+    // =====================
+
+    if (keys[" "] && isGrounded.current) {
+
+      verticalVelocity.current = 0.25;
+
+      isGrounded.current = false;
+
+    }
+
+    // Gravity
+    verticalVelocity.current -= 0.01;
+
+    // Apply vertical movement
+    ref.current.position.y += verticalVelocity.current;
+
+    // Floor collision
+    if (ref.current.position.y <= 1) {
+
+      ref.current.position.y = 1;
+
+      verticalVelocity.current = 0;
+
+      isGrounded.current = true;
+
+    }
 
   });
 
