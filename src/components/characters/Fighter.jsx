@@ -47,7 +47,8 @@ const Fighter = forwardRef(function Fighter(props, ref) {
 
       const angle = Math.atan2(moveX, moveZ);
 
-      ref.current.rotation.y = angle;
+      ref.current.rotation.y +=
+  (angle - ref.current.rotation.y) * 0.1;
 
     }
 
