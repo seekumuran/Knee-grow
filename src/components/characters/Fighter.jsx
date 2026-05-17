@@ -2,7 +2,10 @@ import { Capsule } from "@react-three/drei";
 
 import { useFrame } from "@react-three/fiber";
 
-import { forwardRef } from "react";
+import {
+  forwardRef,
+  useRef
+} from "react";
 
 import keys from "../../game/controls";
 
@@ -13,41 +16,58 @@ const Fighter = forwardRef(function Fighter(
   ref
 ) {
 
+  // Velocity
+  const velocity = useRef({
+    x: 0,
+    z: 0
+  });
+
   useFrame(() => {
 
     if (!ref.current) return;
 
-    const speed = 0.1;
+    // Base speed
+    let moveSpeed = 0.08;
 
-    let moveX = 0;
-    let moveZ = 0;
+    // Sprint
+    if (keys["shift"]) {
+      moveSpeed = 0.15;
+    }
+
+    let inputX = 0;
+    let inputZ = 0;
 
     // Input
-    if (keys["w"]) moveZ -= 1;
-    if (keys["s"]) moveZ += 1;
-    if (keys["a"]) moveX -= 1;
-    if (keys["d"]) moveX += 1;
+    if (keys["w"]) inputZ -= 1;
+    if (keys["s"]) inputZ += 1;
+    if (keys["a"]) inputX -= 1;
+    if (keys["d"]) inputX += 1;
 
-    // Normalize diagonal movement
-    const length = Math.hypot(moveX, moveZ);
+    // Normalize movement
+    const length = Math.hypot(inputX, inputZ);
 
     if (length > 0) {
 
-      moveX /= length;
-      moveZ /= length;
+      inputX /= length;
+      inputZ /= length;
 
       // Camera-relative movement
       const rotatedX =
-        moveX * Math.cos(cameraRotation)
-        - moveZ * Math.sin(cameraRotation);
+        inputX * Math.cos(cameraRotation)
+        - inputZ * Math.sin(cameraRotation);
 
       const rotatedZ =
-        moveX * Math.sin(cameraRotation)
-        + moveZ * Math.cos(cameraRotation);
+        inputX * Math.sin(cameraRotation)
+        + inputZ * Math.cos(cameraRotation);
 
-      // Apply movement
-      ref.current.position.x += rotatedX * speed;
-      ref.current.position.z += rotatedZ * speed;
+      // Smooth acceleration
+      velocity.current.x +=
+        (rotatedX * moveSpeed - velocity.current.x)
+        * 0.1;
+
+      velocity.current.z +=
+        (rotatedZ * moveSpeed - velocity.current.z)
+        * 0.1;
 
       // Rotate player
       const angle =
@@ -55,7 +75,19 @@ const Fighter = forwardRef(function Fighter(
 
       ref.current.rotation.y +=
         (angle - ref.current.rotation.y) * 0.1;
+
+    } else {
+
+      // Deceleration
+      velocity.current.x *= 0.9;
+      velocity.current.z *= 0.9;
+
     }
+
+    // Apply movement
+    ref.current.position.x += velocity.current.x;
+
+    ref.current.position.z += velocity.current.z;
 
   });
 
@@ -65,6 +97,7 @@ const Fighter = forwardRef(function Fighter(
       ref={ref}
       args={[0.5, 1.5, 8, 16]}
       position={[0, 1, 0]}
+      castShadow
     >
 
       <meshStandardMaterial color="#00aaff" />
