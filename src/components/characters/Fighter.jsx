@@ -6,7 +6,12 @@ import { forwardRef } from "react";
 
 import keys from "../../game/controls";
 
-const Fighter = forwardRef(function Fighter(props, ref) {
+const Fighter = forwardRef(function Fighter(
+  {
+    cameraRotation
+  },
+  ref
+) {
 
   useFrame(() => {
 
@@ -14,42 +19,42 @@ const Fighter = forwardRef(function Fighter(props, ref) {
 
     const speed = 0.1;
 
-    // Movement values
     let moveX = 0;
     let moveZ = 0;
 
-    // Forward
-    if (keys["w"]) {
-      moveZ -= speed;
-    }
+    // Input
+    if (keys["w"]) moveZ -= 1;
+    if (keys["s"]) moveZ += 1;
+    if (keys["a"]) moveX -= 1;
+    if (keys["d"]) moveX += 1;
 
-    // Backward
-    if (keys["s"]) {
-      moveZ += speed;
-    }
+    // Normalize diagonal movement
+    const length = Math.hypot(moveX, moveZ);
 
-    // Left
-    if (keys["a"]) {
-      moveX -= speed;
-    }
+    if (length > 0) {
 
-    // Right
-    if (keys["d"]) {
-      moveX += speed;
-    }
+      moveX /= length;
+      moveZ /= length;
 
-    // Apply movement
-    ref.current.position.x += moveX;
-    ref.current.position.z += moveZ;
+      // Camera-relative movement
+      const rotatedX =
+        moveX * Math.cos(cameraRotation)
+        - moveZ * Math.sin(cameraRotation);
 
-    // Rotate toward movement direction
-    if (moveX !== 0 || moveZ !== 0) {
+      const rotatedZ =
+        moveX * Math.sin(cameraRotation)
+        + moveZ * Math.cos(cameraRotation);
 
-      const angle = Math.atan2(moveX, moveZ);
+      // Apply movement
+      ref.current.position.x += rotatedX * speed;
+      ref.current.position.z += rotatedZ * speed;
+
+      // Rotate player
+      const angle =
+        Math.atan2(rotatedX, rotatedZ);
 
       ref.current.rotation.y +=
-  (angle - ref.current.rotation.y) * 0.1;
-
+        (angle - ref.current.rotation.y) * 0.1;
     }
 
   });
