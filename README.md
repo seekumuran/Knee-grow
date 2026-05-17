@@ -19,11 +19,10 @@
 ![R3F](https://img.shields.io/badge/React_Three_Fiber-8-FF6B6B?style=flat-square)
 ![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat-square&logo=vite)
 ![Android](https://img.shields.io/badge/Android-Ready-3DDC84?style=flat-square&logo=android)
-![Status](https://img.shields.io/badge/Status-Active_Dev-FFD700?style=flat-square)
 
 <br/>
 
-![G.ONE Main Menu](./MainG_One.png)
+![G.ONE Main Menu](./ScreenShots/MainG.One.png)
 
 </div>
 
@@ -31,17 +30,11 @@
 
 ## The Idea
 
-G.ONE — The Game is a **wave-based 3D combat game** where you fight through increasingly brutal enemy waves. 
-
-A punch that feels wrong is worse than an ugly punch. The screenshake, hit-stop, energy blasts, and dash trails exist because they make combat *satisfying*.
-
-The game is built entirely in React + Three.js, ships as a PWA, and can be packaged as an Android APK with Capacitor.
+G.ONE — The Game is a **wave-based 3D combat game** where you fight through increasingly brutal enemy waves. The game is built entirely in React + Three.js, ships as a PWA, and can be packaged as an Android APK with Capacitor.
 
 ---
 
 ## Gameplay Overview
-
-You are G.One.
 
 Each level of fighting is harder than the last. Enemies get faster, smarter, and more aggressive. Survive long enough and **Ra.One** spawns — complete with a rage mode that kicks in when its HP drops below 40%.
 
@@ -54,7 +47,7 @@ Each level of fighting is harder than the last. Enemies get faster, smarter, and
 
 ### The Arena
 
-![G.ONE Arena — Enemy Encounter](./Start.png)
+![G.ONE Arena — Enemy Encounter](./ScreenShots/Start.png)
 
 ### What You Can Do
 
@@ -73,7 +66,7 @@ Each level of fighting is harder than the last. Enemies get faster, smarter, and
 
 Every hit triggers a **2–4 frame hit-stop** — the entire game freezes for a fraction of a second. This single technique makes combat feel 10x heavier than it actually is. Combined with screen shake, bloom flash on energy blasts, and dash trails.
 
-![G.ONE Combat — Energy Blast on Enemy](./Action.png)
+![G.ONE Combat — Energy Blast on Enemy](./ScreenShots/Action.png)
 > *Live combat: energy blast connecting mid-fight. Blue bloom burst, health bars active, all 6 mobile buttons visible — BLAST, DASH, ATTACK, SLAM, LOCK ON, BLOCK.*
 
 ---
@@ -734,19 +727,6 @@ const Fighter = () => {
 // Preload for zero loading screen
 useGLTF.preload('/models/fighter.glb');
 ```
----
-
-## Screenshots
-
-| | |
-|---|---|
-| ![Main Menu](./MainG_One.png) | ![Arena Start](./Start.png) |
-| **Main Menu** | **Arena — Wave Start** |
-| ![Combat](./Action.png) | |
-| **Live Combat** | |
-
----
-
 
 Made by C.Kumaran
 
