@@ -1,15 +1,14 @@
-# ⚡ RA.ONE Mobile — Cyber Combat Arena
+# G.ONE — The Game
 
 <div align="center">
 
 ```
-██████╗  █████╗        ██████╗ ███╗   ██╗███████╗
-██╔══██╗██╔══██╗      ██╔═══██╗████╗  ██║██╔════╝
-██████╔╝███████║█████╗██║   ██║██╔██╗ ██║█████╗  
-██╔══██╗██╔══██║╚════╝██║   ██║██║╚██╗██║██╔══╝  
-██║  ██║██║  ██║      ╚██████╔╝██║ ╚████║███████╗
-╚═╝  ╚═╝╚═╝  ╚═╝       ╚═════╝ ╚═╝  ╚═══╝╚══════╝
-        M O B I L E  —  C Y B E R  C O M B A T  A R E N A
+ ██████╗       ██████╗ ███╗   ██╗███████╗
+██╔════╝      ██╔═══██╗████╗  ██║██╔════╝
+██║  ███╗     ██║   ██║██╔██╗ ██║█████╗  
+██║   ██║     ██║   ██║██║╚██╗██║██╔══╝  
+╚██████╔╝     ╚██████╔╝██║ ╚████║███████╗
+ ╚═════╝       ╚═════╝ ╚═╝  ╚═══╝╚══════╝
 ```
 
 **A stylized, wave-based 3D combat game built with React Three Fiber.**  
@@ -22,31 +21,29 @@
 ![Android](https://img.shields.io/badge/Android-Ready-3DDC84?style=flat-square&logo=android)
 ![Status](https://img.shields.io/badge/Status-Active_Dev-FFD700?style=flat-square)
 
+<br/>
+
+![G.ONE Main Menu](./MainG_One.png)
+
 </div>
 
 ---
 
-## 🎬 The Idea
+## The Idea
 
-This started as a weekend experiment: *"Can I build a PS3-era feeling combat game in a browser?"*
+G.ONE — The Game is a **wave-based 3D combat game** where you fight through increasingly brutal enemy waves. 
 
-Turns out — yes. Mostly. With some compromises, a lot of post-processing tricks, and an unhealthy obsession with hit-stop frames.
-
-RA.ONE Mobile is a **wave-based 3D combat game** where you fight through increasingly brutal enemy waves in a neon-lit sci-fi arena. Every mechanical decision was made with one philosophy in mind:
-
-> **"Feel first. Visuals second."**
-
-A punch that feels wrong is worse than an ugly punch. The screenshake, hit-stop, energy blasts, and dash trails exist because they make combat *satisfying* — not just because they look cool (though they do look cool).
+A punch that feels wrong is worse than an ugly punch. The screenshake, hit-stop, energy blasts, and dash trails exist because they make combat *satisfying*.
 
 The game is built entirely in React + Three.js, ships as a PWA, and can be packaged as an Android APK with Capacitor.
 
 ---
 
-## 🎮 Gameplay Overview
+## Gameplay Overview
 
-You are the fighter. The arena is alive. Enemies come in waves.
+You are G.One.
 
-Each wave is harder than the last. Enemies get faster, smarter, and more aggressive. Survive long enough and a **Boss** spawns — complete with a rage mode that kicks in when its HP drops below 40%.
+Each level of fighting is harder than the last. Enemies get faster, smarter, and more aggressive. Survive long enough and **Ra.One** spawns — complete with a rage mode that kicks in when its HP drops below 40%.
 
 ### The Loop
 
@@ -54,6 +51,10 @@ Each wave is harder than the last. Enemies get faster, smarter, and more aggress
 [Main Menu] → [Wave 1: Basic Enemies] → [Wave 2: Faster + Ranged] 
     → [Wave 3: Shield Enemies] → [BOSS WAVE] → [Score] → [Repeat]
 ```
+
+### The Arena
+
+![G.ONE Arena — Enemy Encounter](./Start.png)
 
 ### What You Can Do
 
@@ -70,46 +71,26 @@ Each wave is harder than the last. Enemies get faster, smarter, and more aggress
 
 ### The Combat Feel
 
-Every hit triggers a **2–4 frame hit-stop** — the entire game freezes for a fraction of a second. This single technique makes combat feel 10x heavier than it actually is. Combined with screen shake, bloom flash on energy blasts, and dash trails — it feels like a PS3 arcade fighter.
+Every hit triggers a **2–4 frame hit-stop** — the entire game freezes for a fraction of a second. This single technique makes combat feel 10x heavier than it actually is. Combined with screen shake, bloom flash on energy blasts, and dash trails.
+
+![G.ONE Combat — Energy Blast on Enemy](./Action.png)
+> *Live combat: energy blast connecting mid-fight. Blue bloom burst, health bars active, all 6 mobile buttons visible — BLAST, DASH, ATTACK, SLAM, LOCK ON, BLOCK.*
 
 ---
 
-## ✨ Feature Showcase
-
-```
-⚡ Wave-Based Combat      →  Endless waves with scaling difficulty
-👾 Enemy AI              →  Patrol → Chase → Attack FSM
-💥 Energy Blasts         →  Projectile system with bloom VFX
-🌀 Dash System           →  Directional dash with trail VFX
-🔥 Finisher Moves        →  Screen flash + slow-mo + massive damage
-📳 Screen Shake          →  Trauma-based camera shake system
-⏸️ Hit-Stop Frames        →  Cinematic freeze on heavy impacts
-🌊 Shockwave Effect      →  Ring ripple on finisher/explosion
-🎨 Neon PS3 Aesthetic    →  Bloom post-processing + stylized arena
-📱 Mobile-First UI       →  Virtual joystick + touch buttons
-🤖 Android Export        →  Capacitor APK pipeline
-🔊 Spatial Audio         →  Hit SFX, ambient, BGM
-```
-
----
-
-## 🎮 PS3-Era Visual Inspiration
-
-If you grew up with a PS3, you know the aesthetic:
+## PS3-Era Visual Inspiration
 
 - Deep blacks with bright bloom highlights
 - Neon outlines on geometry
-- Particle explosions that felt *chunky*, not photorealistic
+- Particle explosions that feel *chunky*
 - Arena stages that were simple but atmospheric
 
-This game chases that exact feeling. The arena is intentionally **low-poly**. The enemies are **geometric placeholders** (future versions will use GLB models). The lighting is **colored and dramatic**, not realistic.
+This game chases that exact feeling. The arena is intentionally **low-poly**. The lighting is **colored and dramatic**, not realistic.
 
 Post-processing does the heavy lifting:
 - **Bloom** makes energy attacks glow
 - **Chromatic aberration** pulses on heavy hits
 - **Vignette** keeps the focus center-stage
-
-The goal was never photorealism. It was *vibes*.
 
 ---
 
@@ -151,7 +132,7 @@ This is why the entire game can be composed like a UI app, not a traditional gam
 
 ---
 
-## ⚔️ Combat System Breakdown
+## Combat System Breakdown
 
 The combat system lives in **`src/components/combat/`** and is triggered by the player input layer in **`src/game/controls.js`**.
 
@@ -195,7 +176,7 @@ if (attackSphere.intersectsSphere(enemyHitbox)) {
 }
 ```
 
-No physics engine. No rigid body simulation. Pure math — fast and predictable.
+No physics engine. No rigid body simulation. Just pure math.
 
 ### Energy Blast (`EnergyBlast.jsx`)
 
@@ -217,7 +198,7 @@ useFrame((_, delta) => {
 
 ---
 
-## 🤖 Enemy AI System
+## Enemy AI System
 
 Enemy AI lives in **`src/components/characters/Enemy.jsx`**.
 
@@ -291,7 +272,7 @@ When all enemies in a wave are defeated, a short delay triggers the next wave �
 
 ---
 
-## 💥 VFX Pipeline
+## VFX Pipeline
 
 The effects system lives in **`src/components/effects/`**.
 
@@ -366,7 +347,7 @@ On dash, 4–6 ghost meshes spawn at the previous player positions with decreasi
 
 ---
 
-## 📷 Camera + Lock-On System
+## Camera + Lock-On System
 
 The camera lives in **`src/components/camera/ThirdPersonCamera.jsx`**.
 
@@ -399,7 +380,7 @@ if (lockOnTarget) {
 
 ---
 
-## 📱 Mobile Controls System
+## Mobile Controls System
 
 Mobile controls live in **`src/components/ui/MobileControls.jsx`** and are rendered as a **React DOM overlay** — completely separate from the Three.js canvas.
 
@@ -423,16 +404,6 @@ const handleTouchMove = (e) => {
 };
 ```
 
-### Control Layout
-
-```
-┌─────────────────────────────────────┐
-│                                     │
-│  [Joystick]          [⚡] [💥] [🌀] │
-│                                     │
-│                      [🔒] [⏸] [🔥] │
-└─────────────────────────────────────┘
-```
 
 ### Device Detection (`src/utils/device.js`)
 
@@ -443,69 +414,12 @@ export const isMobile = () =>
   /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
   (navigator.maxTouchPoints > 1);
 ```
-
-On desktop: keyboard controls only, mobile UI hidden.  
-On mobile: virtual joystick + buttons shown, keyboard still works.
-
 ---
 
-## 🤖 Android Deployment
+## Android Deployment
 
 The game exports to Android using **Capacitor** — it wraps the web build into a native WebView APK.
 
-### Build Pipeline
-
-```
-Vite Build → /dist/
-     ↓
-Capacitor Sync → android/ (native project)
-     ↓
-Android Studio Gradle Build → .apk / .aab
-```
-
-### Step-by-Step APK Build
-
-```bash
-# 1. Install Capacitor
-npm install @capacitor/core @capacitor/cli @capacitor/android
-
-# 2. Initialize Capacitor
-npx cap init "RA.ONE Mobile" "com.raone.mobile" --web-dir=dist
-
-# 3. Add Android platform
-npx cap add android
-
-# 4. Build the web app
-npm run build
-
-# 5. Sync to native
-npx cap sync android
-
-# 6. Open in Android Studio
-npx cap open android
-
-# 7. In Android Studio: Build → Generate Signed APK
-#    Or for unsigned debug: Build → Build APK(s)
-```
-
-### `capacitor.config.json`
-
-```json
-{
-  "appId": "com.raone.mobile",
-  "appName": "RA.ONE Mobile",
-  "webDir": "dist",
-  "server": {
-    "androidScheme": "https"
-  },
-  "plugins": {
-    "SplashScreen": {
-      "launchShowDuration": 2000,
-      "backgroundColor": "#000000"
-    }
-  }
-}
-```
 
 ### Performance Notes for Android
 
@@ -526,7 +440,7 @@ export const qualityTier = () => {
 
 ---
 
-## 🗂️ Repo Architecture Explained
+## Repo Architecture Explained
 
 ```
 src/
@@ -582,12 +496,6 @@ src/
 
 ---
 
-## 🧠 Why The Repo Is Structured This Way
-
-This is the question that separates "I wrote some code" from "I engineered a system."
-
-### `characters/` vs `combat/`
-
 Characters and combat are **separated intentionally**.
 
 `Fighter.jsx` knows: "I am the player. I can move, I can attack, I have health."  
@@ -621,7 +529,7 @@ All UI (HUD, menus, mobile controls) is standard HTML/CSS rendered over the canv
 
 ---
 
-## 🖥️ Rendering Pipeline
+## Rendering Pipeline
 
 ```
 React Three Fiber Canvas
@@ -657,7 +565,7 @@ Every frame (60fps target):
 
 ---
 
-## ⚡ Performance Optimizations
+## Performance Optimizations
 
 Running 3D in a browser (especially mobile) demands aggressive optimization.
 
@@ -695,23 +603,13 @@ Without instancing: N enemies = N draw calls. With instancing: N enemies = 1 dra
 
 Implemented via R3F's `<Lod>` component.
 
-### Post-Processing on Demand
-
-Post-processing is expensive on mobile. Effects are conditionally enabled:
-
-| Device Tier | Bloom | Chromatic Ab. | Vignette |
-|---|---|---|---|
-| High (6GB+) | ✅ | ✅ | ✅ |
-| Medium (4GB) | ✅ | ❌ | ✅ |
-| Low (2GB) | ❌ | ❌ | ✅ |
-
 ### Shadow Budget
 
 Shadows are disabled by default. On high-tier devices, one directional shadow is enabled with a low shadow map resolution (512×512).
 
 ---
 
-## 🌊 How Waves & Bosses Work
+## How Waves & Bosses Work
 
 Wave logic lives in **`FightScene.jsx`**.
 
@@ -767,13 +665,13 @@ const onEnemyDefeated = () => {
 };
 ```
 
-### Boss Spawn
+### Ra.One Entry
 
-Boss spawns with a cinematic: camera pulls back, screen flashes, boss drops from above the arena. The `FinisherFlash.jsx` component is reused for the spawn flash.
+Ra.One spawns with a cinematic: camera pulls back, screen flashes, boss drops from above the arena. The `FinisherFlash.jsx` component is reused for the spawn flash.
 
 ---
 
-## 🔊 Audio System
+## Audio System
 
 Audio lives in **`src/audio/sounds.js`**.
 
@@ -803,7 +701,7 @@ Sound effects are triggered directly from component events — no global bus nee
 
 ---
 
-## 🏃 Animation Pipeline
+## Animation Pipeline
 
 Currently, character animations are **procedural** — built from code, not pre-made animation files. This was a deliberate early choice: no asset dependencies, no rigging, instant iteration.
 
@@ -820,28 +718,7 @@ useFrame(({ clock }) => {
 });
 ```
 
-### Future: GLB Model Integration
-
-When GLB models replace the procedural placeholders, the animation pipeline shifts to **Three.js AnimationMixer**:
-
-```js
-// Future Fighter.jsx — GLB animation
-const { scene, animations } = useGLTF('/models/fighter.glb');
-const mixer = useRef(new THREE.AnimationMixer(scene));
-const actions = useRef({
-  idle:    mixer.current.clipAction(animations[0]),
-  attack:  mixer.current.clipAction(animations[1]),
-  dash:    mixer.current.clipAction(animations[2]),
-});
-
-useFrame((_, delta) => mixer.current.update(delta));
-```
-
-The component API doesn't change — only the internals. This is why `Fighter.jsx` is structured to separate "what I do" from "how I look."
-
----
-
-## 📦 How Models Are Loaded
+##  How the Models Are Loaded
 
 Models use R3F's `useGLTF` hook with **Draco compression** for mobile:
 
@@ -857,164 +734,20 @@ const Fighter = () => {
 // Preload for zero loading screen
 useGLTF.preload('/models/fighter.glb');
 ```
-
-### Asset Pipeline (Future)
-
-```
-Blender (.blend) → Export GLB → gltf-transform optimize → Draco compress → /public/models/
-```
-
-Currently: placeholder geometry (BoxGeometry, CapsuleGeometry).  
-Planned: stylized low-poly GLB models matching PS3-era aesthetic.
-
 ---
 
-## 🚀 Installation Guide
+## Screenshots
 
-### Prerequisites
-
-- Node.js 18+ 
-- npm 9+ or yarn
-- (For Android) Android Studio + JDK 17
-
-### Web Development
-
-```bash
-# Clone the repo
-git clone https://github.com/yourusername/raone-mobile.git
-cd raone-mobile
-
-# Install dependencies
-npm install
-
-# Start dev server
-npm run dev
-# → http://localhost:5173
-
-# Production build
-npm run build
-
-# Preview production build
-npm run preview
-```
-
-### Environment
-
-No `.env` variables required for base gameplay. Optional:
-
-```env
-VITE_QUALITY_OVERRIDE=high    # Force quality tier: low | medium | high
-VITE_DEBUG_COLLIDERS=true     # Show hitbox spheres (dev only)
-VITE_SKIP_MENU=true           # Start directly in game (dev only)
-```
-
----
-
-## 🤖 Android APK Build Guide
-
-```bash
-# Step 1: Install Capacitor
-npm install @capacitor/core @capacitor/cli @capacitor/android
-
-# Step 2: Build web app
-npm run build
-
-# Step 3: Add Android platform (first time only)
-npx cap add android
-
-# Step 4: Sync web build to native
-npx cap sync android
-
-# Step 5: Open Android Studio
-npx cap open android
-
-# Step 6: In Android Studio
-# Run → Run 'app' (for debug on device)
-# Build → Generate Signed Bundle/APK (for release)
-```
-
-### Android Manifest Additions
-
-```xml
-<!-- android/app/src/main/AndroidManifest.xml -->
-<application
-    android:hardwareAccelerated="true"
-    android:largeHeap="true">
-```
-
-### Testing on Device
-
-```bash
-# Run directly to connected Android device
-npx cap run android
-```
-
----
-
-## 🔮 Future Improvements
-
-| Priority | Feature | Status |
-|---|---|---|
-| 🔴 High | GLB character models (player + enemies) | Planned |
-| 🔴 High | Draco-compressed model pipeline | Planned |
-| 🟡 Mid | Multiplayer (WebSocket) | Exploring |
-| 🟡 Mid | Additional boss types | Planned |
-| 🟡 Mid | Skill upgrade system between waves | Planned |
-| 🟢 Low | Leaderboard (Firebase) | Planned |
-| 🟢 Low | Custom arena skins | Planned |
-| 🟢 Low | iOS (Capacitor) export | Planned |
-| 🟢 Low | Gamepad support (Web Gamepad API) | Planned |
-
----
-
-## 🖼️ Screenshots
-
-> _Screenshots and GIFs will be added as development progresses._
-
-| Scene | Description |
+| | |
 |---|---|
-| `gameplay-wave1.gif` | Wave 1 combat, energy blast VFX |
-| `boss-rage.gif` | Boss entering rage mode |
-| `mobile-controls.png` | Mobile UI layout |
-| `neon-arena.png` | Arena with bloom post-processing |
+| ![Main Menu](./MainG_One.png) | ![Arena Start](./Start.png) |
+| **Main Menu** | **Arena — Wave Start** |
+| ![Combat](./Action.png) | |
+| **Live Combat** | |
 
 ---
 
-## 🙏 Credits
 
-| Role | Credit |
-|---|---|
-| Game Design & Engineering | You |
-| Three.js | [threejs.org](https://threejs.org) |
-| React Three Fiber | [docs.pmnd.rs](https://docs.pmnd.rs) |
-| Postprocessing | [@react-three/postprocessing](https://github.com/pmndrs/react-postprocessing) |
-| Howler.js | [howlerjs.com](https://howlerjs.com) |
-| Capacitor | [capacitorjs.com](https://capacitorjs.com) |
-| Hit-Stop Technique | Classic fighting game design theory |
-
----
-
-## 💬 Developer Notes
-
-This project is a lot of things at once: a tech demo, a game prototype, a learning exercise, and honestly — a love letter to the PS3-era games that I grew up with.
-
-The codebase is intentionally over-engineered for its current scope. The modular VFX system, the separated combat layer, the instanced rendering — none of it is *strictly necessary* for a game this small. But it's the kind of architecture that lets you wake up six months from now, add a new enemy type in an afternoon, and not hate yourself.
-
-The placeholder geometry will be replaced with real models. The wave system will be extended. The multiplayer option is being explored.
-
-But right now, the game *feels good*. And that's the point.
-
-> **"A punch that lands with a 3-frame hit-stop feels better than a beautiful punch that lands with nothing."**
-
-That philosophy is in every line of this codebase.
-
----
-
-<div align="center">
-
-**Built with React Three Fiber + Three.js**  
-**Made with passion and too much caffeine**
-
-⚡ *The arena is waiting.* ⚡
+Made by C.Kumaran
 
 </div>
