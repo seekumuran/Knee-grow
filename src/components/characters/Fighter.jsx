@@ -14,24 +14,41 @@ const Fighter = forwardRef(function Fighter(props, ref) {
 
     const speed = 0.1;
 
+    // Movement values
+    let moveX = 0;
+    let moveZ = 0;
+
     // Forward
     if (keys["w"]) {
-      ref.current.position.z -= speed;
+      moveZ -= speed;
     }
 
     // Backward
     if (keys["s"]) {
-      ref.current.position.z += speed;
+      moveZ += speed;
     }
 
     // Left
     if (keys["a"]) {
-      ref.current.position.x -= speed;
+      moveX -= speed;
     }
 
     // Right
     if (keys["d"]) {
-      ref.current.position.x += speed;
+      moveX += speed;
+    }
+
+    // Apply movement
+    ref.current.position.x += moveX;
+    ref.current.position.z += moveZ;
+
+    // Rotate toward movement direction
+    if (moveX !== 0 || moveZ !== 0) {
+
+      const angle = Math.atan2(moveX, moveZ);
+
+      ref.current.rotation.y = angle;
+
     }
 
   });
