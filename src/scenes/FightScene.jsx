@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import Arena from "../components/environment/Arena";
 import Lighting from "../components/environment/Lighting";
@@ -13,6 +13,9 @@ export default function FightScene() {
 
   const playerRef = useRef();
 
+  // Shared camera rotation
+  const [cameraRotation, setCameraRotation] = useState(0);
+
   return (
 
     <Canvas shadows>
@@ -21,9 +24,15 @@ export default function FightScene() {
 
       <Arena />
 
-      <Fighter ref={playerRef} />
+      <Fighter
+        ref={playerRef}
+        cameraRotation={cameraRotation}
+      />
 
-      <ThirdPersonCamera target={playerRef} />
+      <ThirdPersonCamera
+        target={playerRef}
+        setCameraRotation={setCameraRotation}
+      />
 
     </Canvas>
   );
