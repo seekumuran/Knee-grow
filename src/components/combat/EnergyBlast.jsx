@@ -34,7 +34,9 @@ export default function EnergyBlast({
         blastRef.current.position;
 
       const distance =
-        blastPosition.distanceTo(enemyPosition);
+        blastPosition.distanceTo(
+          enemyPosition
+        );
 
       if (distance < 2) {
 
@@ -50,12 +52,16 @@ export default function EnergyBlast({
     }
 
     const travelled =
-      blastRef.current.position.distanceTo(
-        position
-      );
+      blastRef.current.position.distanceTo({
+        x: position.x,
+        y: position.y,
+        z: position.z
+      });
 
     if (travelled > 40) {
+
       onDestroy();
+
     }
 
   });
