@@ -719,6 +719,6 @@ const Fighter = () => {
 useGLTF.preload('/models/fighter.glb');
 ```
 
-Made by C.Kumaran
+# Made by C.Kumaran
 
 </div>
