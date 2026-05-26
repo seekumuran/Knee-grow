@@ -41,7 +41,8 @@ public class BossAI : MonoBehaviour
     void MoveTowardsPlayer()
     {
         Vector3 dir =
-            (player.position - transform.position).normalized;
+            (player.position - transform.position)
+            .normalized;
 
         dir.y = 0;
 
@@ -67,5 +68,10 @@ public class BossAI : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
     }
 }
