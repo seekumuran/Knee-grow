@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     public Transform cameraTransform;
     public Animator animator;
 
+    [Header("Mobile")]
+    public VirtualJoystick joystick;
+
     private CharacterController controller;
 
     private Vector3 velocity;
@@ -28,8 +31,11 @@ public class PlayerController : MonoBehaviour
     private float dashTimer;
     private float dashCooldownTimer;
 
-    private readonly int moveHash = Animator.StringToHash("MoveSpeed");
-    private readonly int dashHash = Animator.StringToHash("Dash");
+    private readonly int moveHash =
+        Animator.StringToHash("MoveSpeed");
+
+    private readonly int dashHash =
+        Animator.StringToHash("Dash");
 
     void Start()
     {
@@ -57,10 +63,22 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
+        float horizontal =
+#if UNITY_ANDROID || UNITY_IOS
+            joystick.Horizontal;
+#else
+            Input.GetAxisRaw("Horizontal");
+#endif
 
-        Vector3 inputDirection = new Vector3(horizontal, 0f, vertical).normalized;
+        float vertical =
+#if UNITY_ANDROID || UNITY_IOS
+            joystick.Vertical;
+#else
+            Input.GetAxisRaw("Vertical");
+#endif
+
+        Vector3 inputDirection =
+            new Vector3(horizontal, 0f, vertical).normalized;
 
         if (inputDirection.magnitude >= 0.1f)
         {
@@ -77,16 +95,21 @@ public class PlayerController : MonoBehaviour
                 camForward * inputDirection.z +
                 camRight * inputDirection.x;
 
-            controller.Move(moveDirection * moveSpeed * Time.deltaTime);
+            controller.Move(
+                moveDirection *
+                moveSpeed *
+                Time.deltaTime
+            );
 
             Quaternion targetRotation =
                 Quaternion.LookRotation(moveDirection);
 
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                targetRotation,
-                rotationSpeed * Time.deltaTime
-            );
+            transform.rotation =
+                Quaternion.Slerp(
+                    transform.rotation,
+                    targetRotation,
+                    rotationSpeed * Time.deltaTime
+                );
         }
 
         HandleDashInput();
@@ -106,7 +129,11 @@ public class PlayerController : MonoBehaviour
 
     void HandleDashInput()
     {
+#if UNITY_ANDROID || UNITY_IOS
+        if (MobileControls.DashPressed && canDash)
+#else
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+#endif
         {
             StartDash();
         }
@@ -115,9 +142,11 @@ public class PlayerController : MonoBehaviour
     void StartDash()
     {
         isDashing = true;
+
         canDash = false;
 
         dashTimer = dashDuration;
+
         dashCooldownTimer = dashCooldown;
 
         if (animator != null)
@@ -129,7 +158,9 @@ public class PlayerController : MonoBehaviour
     void DashMovement()
     {
         controller.Move(
-            moveDirection * dashSpeed * Time.deltaTime
+            moveDirection *
+            dashSpeed *
+            Time.deltaTime
         );
 
         dashTimer -= Time.deltaTime;
@@ -157,21 +188,14 @@ public class PlayerController : MonoBehaviour
     {
         if (animator == null) return;
 
-        Vector3 horizontalVelocity = controller.velocity;
+        Vector3 horizontalVelocity =
+            controller.velocity;
+
         horizontalVelocity.y = 0f;
 
-        float speed = horizontalVelocity.magnitude;
+        float speed =
+            horizontalVelocity.magnitude;
 
         animator.SetFloat(moveHash, speed);
-    }
-
-    public bool IsDashing()
-    {
-        return isDashing;
-    }
-
-    public Vector3 GetMoveDirection()
-    {
-        return moveDirection;
     }
 }
