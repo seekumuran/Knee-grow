@@ -2,15 +2,30 @@ using UnityEngine;
 
 public class LockOnSystem : MonoBehaviour
 {
-    public float lockRange = 15f;
+    public float lockRange = 20f;
 
     public Transform currentTarget;
+
+    public Camera mainCamera;
+
+    public ThirdPersonCamera normalCamera;
+
+    public LockOnCamera lockOnCamera;
+
+    private bool lockedOn;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            FindTarget();
+            if (!lockedOn)
+            {
+                FindTarget();
+            }
+            else
+            {
+                Unlock();
+            }
         }
     }
 
@@ -43,6 +58,30 @@ public class LockOnSystem : MonoBehaviour
             }
         }
 
-        currentTarget = nearest;
+        if (nearest != null)
+        {
+            currentTarget = nearest;
+
+            lockedOn = true;
+
+            normalCamera.enabled = false;
+
+            lockOnCamera.enabled = true;
+
+            lockOnCamera.player = transform;
+
+            lockOnCamera.currentTarget = currentTarget;
+        }
+    }
+
+    void Unlock()
+    {
+        lockedOn = false;
+
+        currentTarget = null;
+
+        normalCamera.enabled = true;
+
+        lockOnCamera.enabled = false;
     }
 }
