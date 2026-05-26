@@ -1,55 +1,55 @@
 using UnityEngine;
-using Cinemachine;
 
 public class ThirdPersonCamera : MonoBehaviour
 {
-    [Header("Target")]
-    public Transform player;
+    public Transform target;
 
-    [Header("Rotation")]
+    [Header("Mouse Settings")]
     public float mouseSensitivity = 120f;
+
+    [Header("Camera Settings")]
+    public float distance = 6f;
+    public float height = 2f;
     public float smoothSpeed = 10f;
 
-    [Header("Vertical Clamp")]
+    [Header("Clamp")]
     public float minPitch = -30f;
     public float maxPitch = 60f;
 
     private float yaw;
     private float pitch;
 
-    private CinemachineCamera cinemachineCam;
-
     void Start()
     {
-        cinemachineCam = GetComponent<CinemachineCamera>();
-
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        yaw = player.eulerAngles.y;
+        yaw = transform.eulerAngles.y;
+        pitch = transform.eulerAngles.x;
     }
 
     void LateUpdate()
     {
-        HandleRotation();
-    }
+        if (target == null) return;
 
-    void HandleRotation()
-    {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
-
-        yaw += mouseX;
-        pitch -= mouseY;
+        yaw += Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        pitch -= Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
 
-        Quaternion targetRotation = Quaternion.Euler(pitch, yaw, 0f);
+        Quaternion rotation = Quaternion.Euler(pitch, yaw, 0f);
 
-        transform.rotation = Quaternion.Slerp(
-            transform.rotation,
-            targetRotation,
+        Vector3 desiredPosition =
+            target.position
+            - (rotation * Vector3.forward * distance)
+            + Vector3.up * height;
+
+        transform.position = Vector3.Lerp(
+            transform.position,
+            desiredPosition,
             smoothSpeed * Time.deltaTime
         );
+
+        transform.LookAt(target.position + Vector3.up * 1.5f);
     }
 }
